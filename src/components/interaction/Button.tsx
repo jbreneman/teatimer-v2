@@ -42,6 +42,7 @@ interface ButtonProps {
      * Button contents
      */
     children: React.ReactNode;
+    [x: string]: any;
 }
 
 /**

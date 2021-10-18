@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.4.1",
+    "@reach/dialog": "^0.16.2",
+    "@reach/visually-hidden": "^0.16.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
