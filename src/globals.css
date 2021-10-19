@@ -1,3 +1,6 @@
-* {
-  font-family: "Jost", sans-serif;
+*,
+*::before,
+*::after {
+    font-family: 'Jost', sans-serif;
+    box-sizing: border-box;
 }
