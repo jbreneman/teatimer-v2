@@ -7,6 +7,7 @@ import { TimerCard } from './components/app/TimerCard';
 import { TimerList } from './components/app/TimerList';
 import { NewTimer } from './components/app/NewTimer';
 import { v4 } from 'uuid';
+import { NewTimerDialog } from './components/app/NewTimerDialog';
 
 function App() {
     const [time, setTime] = useState(0);
@@ -27,6 +28,13 @@ function App() {
             setActiveTimer(timer);
         }
         toggle();
+    };
+
+    const addTimer = (timer: Timer) => {
+        console.log('test');
+
+        setShowNewTimer(false);
+        return setTimers([...timers, timer]);
     };
 
     useEffect(() => {
@@ -69,6 +77,11 @@ function App() {
                 </TimerList>
             </main>
             <Logo />
+            <NewTimerDialog
+                isOpen={showNewTimer}
+                close={() => setShowNewTimer(false)}
+                onSubmit={addTimer}
+            />
             <NewTimer onClick={() => setShowNewTimer(true)} />
         </>
     );

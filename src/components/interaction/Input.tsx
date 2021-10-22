@@ -13,7 +13,6 @@ const styles = css`
     text-transform: lowercase;
     transition: all var(--transition-300);
     color: black;
-    filter: drop-shadow(var(--shadow-primary));
     padding: var(--spacing-300) var(--spacing-500);
 
     &:focus {
@@ -26,7 +25,7 @@ interface InputProps {
     /**
      * The input type.
      */
-    type: string;
+    type?: string;
     /**
      * Input value
      */
@@ -34,7 +33,8 @@ interface InputProps {
     /**
      * Optional click handler
      */
-    onChange?: () => void;
+    onChange?: (e: any) => void;
+    [x: string]: any;
 }
 
 /**

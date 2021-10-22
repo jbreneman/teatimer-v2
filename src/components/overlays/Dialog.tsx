@@ -3,13 +3,23 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
-import '@reach/dialog/styles.css';
 
 const overlayStyles = css`
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
 `;
 const contentStyles = css`
+    width: 50vw;
+    margin: 10vh auto;
+    background: white;
+    padding: 2rem;
+    outline: none;
     position: relative;
     border-radius: var(--corners-500);
     filter: drop-shadow(var(--shadow-primary));

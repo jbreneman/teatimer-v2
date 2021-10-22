@@ -5,8 +5,11 @@ import React from 'react';
 
 const styles = {
     list: css`
+        display: flex;
+        flex-direction: column;
         margin: 0;
         padding: 0 var(--spacing-400);
+        gap: var(--spacing-300);
     `,
 };
 
