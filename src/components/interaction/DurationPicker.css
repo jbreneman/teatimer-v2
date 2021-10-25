@@ -1,0 +1,12 @@
+.rdp-picker {
+    width: 100% !important;
+}
+
+.rdp-reticule {
+    border-width: 1px;
+    border-color: var(--color-primary);
+}
+
+.rdp-text-overlay div {
+    font-style: normal;
+}
