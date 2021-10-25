@@ -31,8 +31,6 @@ function App() {
     };
 
     const addTimer = (timer: Timer) => {
-        console.log('test');
-
         setShowNewTimer(false);
         return setTimers([...timers, timer]);
     };

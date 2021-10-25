@@ -33,7 +33,7 @@ const createNewTimer = (): Timer => {
 
 interface NewTimerDialogProps {
     isOpen: boolean;
-    timer: Timer;
+    timer?: Timer;
     close: () => void;
     onSubmit: ({ label, seconds, uuid }: Timer) => void;
 }

@@ -8,6 +8,7 @@ const styles = {
         display: flex;
         flex-direction: column;
         margin: 0;
+        margin-bottom: var(--spacing-900);
         padding: 0 var(--spacing-400);
         gap: var(--spacing-300);
     `,
