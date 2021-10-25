@@ -7,6 +7,8 @@ import { Input } from '../interaction/Input';
 import VisuallyHidden from '@reach/visually-hidden';
 import { Button } from '../interaction/Button';
 import { v4 } from 'uuid';
+import { Text } from '../text/Text';
+import { Label } from '../text/Label';
 
 const styles = {
     form: css`
@@ -40,6 +42,9 @@ export const NewTimerDialog = ({
 
     return (
         <Dialog isOpen={isOpen} close={close}>
+            <Text tag="h2" size={500}>
+                Add new timer
+            </Text>
             <form
                 css={styles.form}
                 onSubmit={(e) => {
@@ -47,20 +52,17 @@ export const NewTimerDialog = ({
                     return onSubmit({ label: name, seconds: time, uuid: v4() });
                 }}
             >
-                <label htmlFor="value">
-                    <VisuallyHidden>Timer name</VisuallyHidden>
-                </label>
+                <Label htmlFor="value">name</Label>
                 <Input
                     css={styles.input}
                     id="value"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label htmlFor="time">
-                    <VisuallyHidden>Time</VisuallyHidden>
-                </label>
+                <Label htmlFor="time">Time</Label>
                 <Input
                     css={styles.input}
+                    type="time"
                     id="time"
                     value={time.toString()}
                     onChange={(e) => setTime(+e.target.value)}

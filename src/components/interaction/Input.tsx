@@ -34,12 +34,14 @@ interface InputProps {
      * Optional click handler
      */
     onChange?: (e: any) => void;
-    [x: string]: any;
 }
 
 /**
  * Primary UI component for user input
  */
-export const Input = ({ type = 'text', ...props }: InputProps) => {
+export const Input = ({
+    type = 'text',
+    ...props
+}: InputProps & React.HTMLProps<HTMLInputElement>) => {
     return <input type={type} css={styles} {...props} />;
 };
