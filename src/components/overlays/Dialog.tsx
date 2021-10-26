@@ -3,6 +3,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const overlayStyles = css`
     position: fixed;
@@ -13,6 +14,7 @@ const overlayStyles = css`
     overflow: auto;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
+    overflow: hidden;
 `;
 const contentStyles = css`
     width: 50vw;
@@ -53,6 +55,9 @@ const closeStyles = css`
     }
 `;
 
+const MotionDialogContent = motion(DialogContent);
+const MotionDialogOverlay = motion(DialogOverlay);
+
 interface DialogProps {
     /**
      * Controls whether or not the dialog is open.
@@ -73,13 +78,39 @@ interface DialogProps {
  */
 export const Dialog = ({ isOpen, close, children, ...props }: DialogProps) => {
     return (
-        <DialogOverlay css={overlayStyles} isOpen={isOpen} onDismiss={close}>
-            <DialogContent css={contentStyles}>
-                <button css={closeStyles} onClick={close}>
-                    close
-                </button>
-                {children}
-            </DialogContent>
-        </DialogOverlay>
+        <AnimatePresence>
+            {isOpen && (
+                <MotionDialogOverlay
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                        type: 'tween',
+                        duration: 0.3,
+                        ease: 'anticipate',
+                    }}
+                    css={overlayStyles}
+                >
+                    <MotionDialogContent>
+                        <motion.div
+                            css={contentStyles}
+                            initial={{ y: '100%' }}
+                            animate={{ y: 0 }}
+                            exit={{ y: '100%' }}
+                            transition={{
+                                type: 'tween',
+                                duration: 0.5,
+                                ease: 'anticipate',
+                            }}
+                        >
+                            <button css={closeStyles} onClick={close}>
+                                close
+                            </button>
+                            {children}
+                        </motion.div>
+                    </MotionDialogContent>
+                </MotionDialogOverlay>
+            )}
+        </AnimatePresence>
     );
 };

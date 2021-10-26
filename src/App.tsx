@@ -35,6 +35,10 @@ function App() {
         return setTimers([...timers, timer]);
     };
 
+    const removeTimer = ({ uuid }: Timer) => {
+        return setTimers(timers.filter((timer) => timer.uuid !== uuid));
+    };
+
     useEffect(() => {
         let interval: number | undefined;
 
@@ -69,6 +73,7 @@ function App() {
                                     isActive && activeTimer?.uuid === timer.uuid
                                 }
                                 onPlay={() => play(timer)}
+                                onRemove={() => removeTimer(timer)}
                             />
                         );
                     })}

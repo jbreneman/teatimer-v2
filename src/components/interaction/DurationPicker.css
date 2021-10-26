@@ -7,6 +7,10 @@
     border-color: var(--color-primary);
 }
 
+.rdp-text-overlay {
+    font-variant-numeric: tabular-nums;
+}
+
 .rdp-text-overlay div {
     font-style: normal;
 }

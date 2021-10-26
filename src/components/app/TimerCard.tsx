@@ -6,8 +6,13 @@ import React from 'react';
 import { formatTime } from '../../helpers/formatTime';
 import { Card } from '../layout/Card';
 import { Text } from '../text/Text';
+import { motion, useAnimation, PanInfo } from 'framer-motion';
+import COLORS from '../../styleguide/colors';
 
 const styles = {
+    motion: css`
+        border-radius: var(--spacing-500);
+    `,
     card: css`
         list-style: none;
         display: grid;
@@ -16,6 +21,8 @@ const styles = {
             'timer action'
             'label action';
         gap: var(--spacing-100);
+        touch-action: none;
+        background-color: inherit;
     `,
     timer: css`
         grid-area: timer;
@@ -49,6 +56,7 @@ const styles = {
 interface TimerCardProps {
     playing: boolean;
     onPlay: () => void;
+    onRemove: () => void;
 }
 
 export const TimerCard = ({
@@ -56,21 +64,60 @@ export const TimerCard = ({
     label,
     playing,
     onPlay,
+    onRemove,
 }: Timer & TimerCardProps) => {
     const formattedTimer = formatTime(seconds);
+    const controls = useAnimation();
+
+    const halfWindowWidth = window.innerWidth / 2;
+
+    const handlePan = (_: any, info: PanInfo) => {
+        const isRemovable = halfWindowWidth <= Math.abs(info.offset.x);
+
+        controls.set({
+            translateX: info.offset.x / 2,
+            opacity: 0.75,
+            backgroundColor: isRemovable
+                ? COLORS.destructive
+                : 'rgba(255, 255, 255, 0)',
+        });
+    };
+
+    const handlePanEnd = (_: any, info: PanInfo) => {
+        controls.start({
+            translateX: 0,
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            opacity: 1,
+        });
+
+        const isRemovable = halfWindowWidth <= Math.abs(info.offset.x);
+        if (isRemovable) {
+            onRemove();
+        }
+    };
+
     return (
-        <Card tag="li" css={styles.card}>
-            <Text css={styles.timer} size={500}>
-                {formattedTimer}
-            </Text>
-            <Text css={styles.label} size={400}>
-                {label}
-            </Text>
-            <button css={styles.button} onClick={onPlay}>
-                <VisuallyHidden>{playing ? 'Play' : 'Pause'}</VisuallyHidden>
-                <TimerPlayIcon isActive={playing} />
-            </button>
-        </Card>
+        <motion.div
+            css={styles.motion}
+            onPan={handlePan}
+            onPanEnd={handlePanEnd}
+            animate={controls}
+        >
+            <Card tag="li" css={styles.card}>
+                <Text css={styles.timer} size={500}>
+                    {formattedTimer}
+                </Text>
+                <Text css={styles.label} size={400}>
+                    {label}
+                </Text>
+                <button css={styles.button} onClick={onPlay}>
+                    <VisuallyHidden>
+                        {playing ? 'Play' : 'Pause'}
+                    </VisuallyHidden>
+                    <TimerPlayIcon isActive={playing} />
+                </button>
+            </Card>
+        </motion.div>
     );
 };
 
